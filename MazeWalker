@@ -1,0 +1,66 @@
+import se.lth.cs.pt.maze.Maze;
+import se.lth.cs.pt.window.SimpleWindow;
+
+public class MazeWalker {
+private Turtle turtle;
+private boolean wallLeft;
+private boolean wallFront;
+private int delay;
+private boolean hej = true;
+public MazeWalker(Turtle turtle, int delay) {
+	//initialiserar värdet på left och front till false för det ska ha ett utgångsvärde
+wallLeft = false;
+wallFront = false;
+this.turtle = turtle;
+this.delay = delay;
+
+
+	
+}
+/** Låter sköldpaddan vandra genom labyrinten maze, från
+ingången till utgången. */
+public void walk(Maze maze) {
+// fyll i kod
+	while(!(maze.atExit(turtle.getX(), turtle.getY()))) {
+	wallLeft = maze.wallAtLeft(turtle.getDirection(), turtle.getX(), turtle.getY());//kollar läget
+	wallFront = maze.wallInFront(turtle.getDirection(), turtle.getX(), turtle.getY());
+	turtle.penDown();
+while(wallLeft == true && wallFront == false) {
+	turtle.forward(1);
+	wallLeft = maze.wallAtLeft(turtle.getDirection(), turtle.getX(), turtle.getY());//kollar läget igen
+	wallFront = maze.wallInFront(turtle.getDirection(), turtle.getX(), turtle.getY());
+	SimpleWindow.delay(delay);
+}
+while(wallFront == false) {
+
+	
+	while(hej == true) {
+		turtle.left(90);
+		hej = false;
+	}
+	
+	turtle.forward(1);
+	wallLeft = maze.wallAtLeft(turtle.getDirection(), turtle.getX(), turtle.getY());//kollar läget igen
+	wallFront = maze.wallInFront(turtle.getDirection(), turtle.getX(), turtle.getY());
+	SimpleWindow.delay(delay);
+	if(maze.atExit(turtle.getX(), turtle.getY())){
+		break;
+	}
+	if(wallLeft == true) {
+		break;
+	}
+	
+}
+hej = true;
+	while(wallLeft == true && wallFront == true) {
+		turtle.left(270);
+		wallLeft = maze.wallAtLeft(turtle.getDirection(), turtle.getX(), turtle.getY());//kollar läget igen
+		wallFront = maze.wallInFront(turtle.getDirection(), turtle.getX(), turtle.getY());
+		SimpleWindow.delay(delay);
+	}
+		}
+	System.out.println("Kolla kolla, sköldpaddan hittade ut! Tänka sig att sköldpaddor kan vara så kloka :)");
+	
+}
+
+}
