@@ -1,0 +1,33 @@
+import se.lth.cs.pt.maze.Maze;
+import se.lth.cs.pt.window.SimpleWindow;
+import java.util.Scanner;
+
+public class MainMaze {
+
+	public static void main(String[] args) {
+		//låter användaren välja en labyrint
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Vilken labyrint vill du välja?" + " " + "Skriv ett nummer 1 till 5");
+		int mazeNbr = scan.nextInt();
+		Maze m = new Maze(mazeNbr); //skapar maze objekt
+		
+		System.out.println("Hur snabb är din sköldpadda" + " " + "Skriv 1 till 50, OBS mindre siffror är snabbare");
+		int speed = scan.nextInt();
+	
+		SimpleWindow w = new SimpleWindow(600,600, "Maze"); //Skapar ett simple window
+		
+		
+		
+		
+		m.draw(w); // Ritar labyrinten
+		
+		Turtle turtle = new Turtle(w, m.getXEntry(), m.getYEntry()); //ritar turtle i ingången på labyrinten
+		
+		MazeWalker walker = new MazeWalker(turtle, speed);
+		
+		walker.walk(m); //går labyrinten
+		
+
+	}
+
+}
